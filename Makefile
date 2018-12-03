@@ -29,7 +29,7 @@ UTC_DATE=$(shell date -u "+%Y-%m-%d")
 # is running in the developer VM.
 SKIP_DOCS ?= $(shell if mount | grep -q "/home/vagrant/go/src/github.com/cilium/cilium type nfs"; then echo "true"; else echo "false"; fi)
 
-all: precheck build postcheck
+all: build postcheck
 	@echo "Build finished."
 
 build: $(SUBDIRS)
