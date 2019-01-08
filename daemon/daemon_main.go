@@ -26,6 +26,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cilium/cilium/api/v1/models"
 	"github.com/cilium/cilium/api/v1/server"
 	"github.com/cilium/cilium/api/v1/server/restapi"
 	"github.com/cilium/cilium/common"
@@ -908,7 +909,10 @@ func runDaemon() {
 		d.workloadsEventsCh = eventsCh
 	}
 
-	//d.initHealth()
+	// Currently, cilium-health cannot run in ipvlan mode
+	if option.Config.DatapathMode != models.DatapathModeIpvlan {
+		d.initHealth()
+	}
 
 	metricsErrs := initMetrics()
 

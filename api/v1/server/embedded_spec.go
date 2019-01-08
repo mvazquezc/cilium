@@ -1302,12 +1302,7 @@ func init() {
               }
             },
             "name": {
-              "description": "Name",
-              "type": "string",
-              "enum": [
-                "veth",
-                "ipvlan"
-              ]
+              "$ref": "#/definitions/DatapathMode"
             }
           }
         },
@@ -1341,6 +1336,14 @@ func init() {
           "type": "integer"
         }
       }
+    },
+    "DatapathMode": {
+      "description": "Datapath mode",
+      "type": "string",
+      "enum": [
+        "veth",
+        "ipvlan"
+      ]
     },
     "DebugInfo": {
       "description": "groups some debugging related information on the agent",

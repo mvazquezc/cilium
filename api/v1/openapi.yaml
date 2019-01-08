@@ -1417,12 +1417,9 @@ definitions:
         description: Datapath mode
         type: object
         properties:
+          # TODO(brb) think of better field name || field type name
           name:
-            description: Name
-            type: string
-            enum:
-              - veth
-              - ipvlan
+            "$ref": "#/definitions/DatapathMode"
           attrs:
             description: Attributes
             type: object
@@ -1430,6 +1427,12 @@ definitions:
               masterDevIfIndex:
                 description: Master device ifindex (only for ipvlan)
                 type: integer
+  DatapathMode:
+    description: Datapath mode
+    type: string
+    enum:
+      - veth
+      - ipvlan
   EndpointConfigurationSpec:
     description: An endpoint's configuration
     type: object

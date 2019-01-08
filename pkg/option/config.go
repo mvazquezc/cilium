@@ -231,7 +231,7 @@ type daemonConfig struct {
 
 	Tunnel                 string // Tunnel mode
 	IPVlanMasterDevIfIndex int    // IPvlan master device interface index
-	DatapathMode           string // TODO(brb): enum - "veth", "ipvlan"
+	DatapathMode           models.DatapathMode
 
 	DryMode bool // Do not create BPF maps, devices, ..
 

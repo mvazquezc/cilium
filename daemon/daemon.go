@@ -1258,7 +1258,7 @@ func (h *getConfig) Handle(params GetConfigParams) middleware.Responder {
 	}
 
 	datapathModeAttrs := &models.DaemonConfigurationStatusDatapathModeAttrs{}
-	if option.Config.DatapathMode == "ipvlan" {
+	if option.Config.DatapathMode == models.DatapathModeIpvlan {
 		datapathModeAttrs.MasterDevIfIndex = int64(option.Config.IPVlanMasterDevIfIndex)
 	}
 

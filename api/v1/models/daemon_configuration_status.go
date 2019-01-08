@@ -6,13 +6,10 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"encoding/json"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
-	"github.com/go-openapi/validate"
 )
 
 // DaemonConfigurationStatus Response to a daemon configuration request. Contains the addressing
@@ -230,8 +227,8 @@ type DaemonConfigurationStatusDatapathMode struct {
 	// attrs
 	Attrs *DaemonConfigurationStatusDatapathModeAttrs `json:"attrs,omitempty"`
 
-	// Name
-	Name string `json:"name,omitempty"`
+	// name
+	Name DatapathMode `json:"name,omitempty"`
 }
 
 /* polymorph DaemonConfigurationStatusDatapathMode attrs false */
@@ -277,41 +274,16 @@ func (m *DaemonConfigurationStatusDatapathMode) validateAttrs(formats strfmt.Reg
 	return nil
 }
 
-var daemonConfigurationStatusDatapathModeTypeNamePropEnum []interface{}
-
-func init() {
-	var res []string
-	if err := json.Unmarshal([]byte(`["veth","ipvlan"]`), &res); err != nil {
-		panic(err)
-	}
-	for _, v := range res {
-		daemonConfigurationStatusDatapathModeTypeNamePropEnum = append(daemonConfigurationStatusDatapathModeTypeNamePropEnum, v)
-	}
-}
-
-const (
-	// DaemonConfigurationStatusDatapathModeNameVeth captures enum value "veth"
-	DaemonConfigurationStatusDatapathModeNameVeth string = "veth"
-	// DaemonConfigurationStatusDatapathModeNameIpvlan captures enum value "ipvlan"
-	DaemonConfigurationStatusDatapathModeNameIpvlan string = "ipvlan"
-)
-
-// prop value enum
-func (m *DaemonConfigurationStatusDatapathMode) validateNameEnum(path, location string, value string) error {
-	if err := validate.Enum(path, location, value, daemonConfigurationStatusDatapathModeTypeNamePropEnum); err != nil {
-		return err
-	}
-	return nil
-}
-
 func (m *DaemonConfigurationStatusDatapathMode) validateName(formats strfmt.Registry) error {
 
 	if swag.IsZero(m.Name) { // not required
 		return nil
 	}
 
-	// value enum
-	if err := m.validateNameEnum("datapathMode"+"."+"name", "body", m.Name); err != nil {
+	if err := m.Name.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("datapathMode" + "." + "name")
+		}
 		return err
 	}
 

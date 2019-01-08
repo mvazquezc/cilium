@@ -397,7 +397,7 @@ func cmdAdd(args *skel.CmdArgs) error {
 		return err
 	}
 
-	if daemonConfig.Status.DatapathMode.Name == "veth" {
+	if daemonConfig.Status.DatapathMode.Name == models.DatapathModeVeth {
 		panic("TODO(brb): let's assume ipvlan-only for now")
 	}
 
