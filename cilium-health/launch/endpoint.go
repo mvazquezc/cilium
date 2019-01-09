@@ -267,6 +267,14 @@ func LaunchAsEndpoint(owner endpoint.Owner, hostAddressing *models.NodeAddressin
 		return fmt.Errorf("Error while adding endpoint: %s", err)
 	}
 
+	buildSuccessful := <-ep.Regenerate(owner, &endpoint.ExternalRegenerationMetadata{
+		Reason: "health daemon bootstrap",
+	})
+	if !buildSuccessful {
+		endpointmanager.Remove(ep)
+		return fmt.Errorf("unable to build health endpoint")
+	}
+
 	// Propagate health IPs to all other nodes via annotations
 	if NodeEpAnnotator != nil {
 		err = NodeEpAnnotator.AnnotateNode(node.GetName(), nil, nil, ip4, ip6, nil)
