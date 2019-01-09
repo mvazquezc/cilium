@@ -1,4 +1,4 @@
-// Copyright 2018 Authors of Cilium
+// Copyright 2018-2019 Authors of Cilium
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -61,9 +61,9 @@ func (e *EPPolicyMapTestSuite) TestWriteEndpoint(c *C) {
 	}
 
 	CreateEPPolicyMap()
-	err = WriteEndpoint(keys, fd)
+	err = writeEndpoint(keys, fd)
 	c.Assert(err, Not(IsNil))
-	err = WriteEndpoint(many, fd)
+	err = writeEndpoint(many, fd)
 	c.Assert(err, Not(IsNil))
 }
 
@@ -82,7 +82,7 @@ func (e *EPPolicyMapTestSuite) TestWriteEndpointFails(c *C) {
 
 	keys[0] = lxcmap.NewEndpointKey(net.ParseIP("1.2.3.4"))
 	CreateEPPolicyMap()
-	err = WriteEndpoint(keys, -1)
+	err = writeEndpoint(keys, -1)
 	c.Assert(err, Not(IsNil))
 }
 
@@ -98,6 +98,6 @@ func (e *EPPolicyMapTestSuite) TestWriteEndpointDisabled(c *C) {
 
 	keys[0] = lxcmap.NewEndpointKey(net.ParseIP("1.2.3.4"))
 	CreateEPPolicyMap()
-	err = WriteEndpoint(keys, fd)
+	err = writeEndpoint(keys, fd)
 	c.Assert(err, IsNil)
 }
